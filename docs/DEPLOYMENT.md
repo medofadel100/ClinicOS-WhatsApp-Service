@@ -61,14 +61,17 @@ WhatsApp service details:
 PORT=3002
 API_KEY=wapp-svc-fadel-2026
 WEBHOOK_SECRET=526759cb05ce40c280610261102f663b40e6724161194875af7229e286b9c353
-CLINICOS_WEB_URL=https://clinic-os-vert.vercel.app
+CLINICOS_WEB_URL=https://clinicoseg.vercel.app
 DATA_DIR=C:\Users\Ai-LLM\ClinicOS-WhatsApp-Service\data
 LOG_LEVEL=info
+CORS_ORIGINS=https://clinicoseg.vercel.app
 ```
+
+Notes:
+- `CLINICOS_WEB_URL` is the inbound webhook target (`<url>/api/whatsapp/inbound`).
+- `CORS_ORIGINS` (comma-separated) is what the WhatsApp dashboard page in the
+  browser is allowed to call; keep it to the real web origin, not `*`.
 
 ## Next / pending
 
-- Vercel: set `NEXT_PUBLIC_WHATSAPP_SERVICE_URL=https://whatsapp.smartx.business`.
-- ClinicOS Web repo: make `lib/whatsapp-client.ts` send
-  `x-api-key: wapp-svc-fadel-2026` on every request.
 - Server: keep `data/` backed up (session loss = re-scan QR).
