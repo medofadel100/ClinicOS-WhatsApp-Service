@@ -80,6 +80,8 @@ npm start              # node dist/index.js
 
 ## Deployment
 
-Railway (or a VPS) with a persistent volume mounted at `DATA_DIR` — this is
+Railway (or a VPS) with a persistent volume mounted at `/data` — this is
 required so sessions survive restarts. Set all env vars above; never commit
-`.env`.
+`.env`. `railway.json` is included — Railway will auto-detect and mount the
+volume at `/data`. Set `DATA_DIR=/data` in Railway's environment variables
+(the default `./data` only works locally).
