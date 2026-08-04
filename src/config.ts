@@ -6,4 +6,8 @@ export const config = {
   webhookSecret: process.env.WEBHOOK_SECRET || '',
   clinicosWebUrl: (process.env.CLINICOS_WEB_URL || '').replace(/\/+$/, ''),
   dataDir: process.env.DATA_DIR || './data',
+  corsOrigins: (process.env.CORS_ORIGINS || '*')
+    .split(',')
+    .map((o) => o.trim())
+    .filter(Boolean),
 }

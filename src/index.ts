@@ -12,6 +12,23 @@ const sendQueue = new SendQueueManager()
 
 app.use(express.json({ limit: '1mb' }))
 
+app.use((req: Request, res: Response, next) => {
+  const origin = req.headers.origin
+  const allowed = config.corsOrigins.includes('*') || (origin && config.corsOrigins.includes(origin))
+  if (origin && allowed) {
+    res.setHeader('Access-Control-Allow-Origin', config.corsOrigins.includes('*') ? '*' : origin)
+    res.setHeader('Vary', 'Origin')
+    res.setHeader('Access-Control-Allow-Methods', 'GET,POST,DELETE,OPTIONS')
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type,x-api-key,Authorization')
+    res.setHeader('Access-Control-Max-Age', '86400')
+  }
+  if (req.method === 'OPTIONS') {
+    res.status(204).end()
+    return
+  }
+  next()
+})
+
 app.get('/health', (_req: Request, res: Response) => {
   res.json({ status: 'ok' })
 })
